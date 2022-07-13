@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import {useDispatch} from "react-redux";
+import {getMoviesTC} from "./state/movieReducer";
+import {TypeDispatch} from "./state/store";
+import Movies from "./components/movies/Movies";
 
 function App() {
+
+    useEffect(()=> {
+        dispatch(getMoviesTC())
+    },[])
+
+    const dispatch = useDispatch<TypeDispatch>()
+
   return (
     <div className="App">
+
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Movie lists</h1>
+          <div>1 ,2, 3,4 ,5 ,6 </div>
+
       </header>
+    <Movies/>
+
     </div>
   );
 }

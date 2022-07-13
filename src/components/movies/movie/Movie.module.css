@@ -1,0 +1,46 @@
+.movieBlock {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.movieBlock img {
+    border: 5px solid white;
+}
+
+.hoverEffectBtn {
+    position: relative;
+    width: 100%;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: background 0.5s ease;
+}
+.hoverEffectBtn:hover .overlay {
+    display: block;
+    background: rgba(0, 0, 0, 0.9); /* Настройка цвета и прозрачности для блока с заголовком при наведении */
+}
+.button {
+    position: absolute;
+    width: 100%;
+    left:0;
+    top: 65%; /* Отступ сверху */
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+.button a {
+    padding: 15px 40px; /* Отступ */
+    text-align: center;
+    text-decoration: none;
+    background: #1e6eff; /* Цвет кнопки */
+    color: white; /* Цвет текста */
+    border: 1px solid white; /* Ширина, стиль и цвет границы */
+    z-index: 1;
+}
+.hoverEffectBtn:hover .button {
+    opacity: 1;
+}
