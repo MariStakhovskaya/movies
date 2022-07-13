@@ -1,0 +1,12 @@
+.page, currentPage {
+    border: 1px solid burlywood;
+    border-radius: 100%;
+    padding: 5px 10px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.currentPage {
+    border: 2px solid burlywood;
+    font-weight: 700;
+}

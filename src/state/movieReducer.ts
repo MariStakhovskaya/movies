@@ -12,7 +12,8 @@ export type MovieType = {
 const initialState = {
     movies: []as Array<MovieType>,
     totalMovieCount: 0,
-    pageNumber: 1
+    pageNumber: 1,
+    perPage: 15
 }
 type InitialStateType = typeof initialState
 
@@ -24,7 +25,7 @@ export const movieReducer = (state: InitialStateType = initialState, action: App
             return {...state,movies: action.movies}
         case 'TOTAL-MOVIE-COUNT':
             return {...state, totalMovieCount: action.totalMovieCount}
-        case 'CURRENT-PAGE':
+        case 'SET-CURRENT-PAGE':
             return {...state, pageNumber: action.pageNumber}
         default:
             return state
@@ -40,8 +41,8 @@ export const totalMovieCountAC = (totalMovieCount: number) => ({
     type: 'TOTAL-MOVIE-COUNT',
     totalMovieCount
 } as const)
-export const getCurrentPageAC = (pageNumber: number) => ({
-    type: 'CURRENT-PAGE',
+export const setCurrentPageAC = (pageNumber: number) => ({
+    type: 'SET-CURRENT-PAGE',
     pageNumber
 } as const)
 
@@ -56,7 +57,7 @@ export const getMoviesTC = () => (dispatch: Dispatch<AppActionsType>) => {
         .then((res)=>{
             dispatch(getMovieAC(res.data.data.movies))
             dispatch(totalMovieCountAC(res.data.movie_count))
-            dispatch(getCurrentPageAC(res.data.movie.page_number))
+            dispatch(setCurrentPageAC(res.data.movie.page_number))
 
         })
         .catch(err => {
@@ -70,6 +71,6 @@ export type MovieActionTypes = GetMovieDataType | TotalMovieCountType | CurrentP
 
 export type GetMovieDataType = ReturnType<typeof getMovieAC>
 export type TotalMovieCountType = ReturnType<typeof totalMovieCountAC>
-export type CurrentPageType = ReturnType<typeof getCurrentPageAC>
+export type CurrentPageType = ReturnType<typeof setCurrentPageAC>
 
 

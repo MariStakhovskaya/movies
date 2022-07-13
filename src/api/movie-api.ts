@@ -8,6 +8,6 @@ const instance = axios.create({
 
 export const movieApi = {
     getAllMovie() {
-        return  instance.get(`list_movies.json?limit=18`)
+        return  instance.get(`list_movies.json?limit=50`)
     },
 }
