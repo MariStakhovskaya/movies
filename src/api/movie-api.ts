@@ -7,7 +7,7 @@ const instance = axios.create({
 })
 
 export const movieApi = {
-    getAllMovie() {
-        return  instance.get(`list_movies.json?limit=50`)
+    getAllMovie(params: any) {
+        return  instance.get((`list_movies.json`),{params})
     },
 }

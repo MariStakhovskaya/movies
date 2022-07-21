@@ -10,8 +10,8 @@ const Paginator = () => {
     const dispatch = useDispatch()
 
     const totalMovieCount = useSelector<AppRootState, number>(state => state.movies.totalMovieCount)
-    const currentPage = useSelector<AppRootState, number>(state => state.movies.pageNumber)
-    const perPage = useSelector<AppRootState, number>(state => state.movies.perPage)
+    const currentPage = useSelector<AppRootState, number>(state => state.movies.params.pageNumber)
+    const perPage = useSelector<AppRootState, number>(state => state.movies.params.limit)
     const pageCount =Math.ceil(totalMovieCount / perPage)
 
 
