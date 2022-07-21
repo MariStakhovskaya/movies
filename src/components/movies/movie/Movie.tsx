@@ -9,8 +9,7 @@ type MoviePropsType = {
 }
 
 const Movie = ({data}: MoviePropsType) => {
-
-
+    
     const {medium_cover_image, title_english } = data
 
     const onError = (e: SyntheticEvent<HTMLImageElement>) => {

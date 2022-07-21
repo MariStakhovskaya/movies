@@ -6,6 +6,7 @@ export type MovieType = {
     id: number,
     medium_cover_image: string,
     title_english: string,
+    genres: Array<string>,
 
 }
 
@@ -57,6 +58,7 @@ export const getMoviesTC = () => (dispatch: Dispatch<AppActionsType>) => {
         .then((res)=>{
             dispatch(getMovieAC(res.data.data.movies))
             dispatch(totalMovieCountAC(res.data.movie_count))
+            console.log(res.data.movie_count)
             dispatch(setCurrentPageAC(res.data.movie.page_number))
 
         })
@@ -73,4 +75,4 @@ export type GetMovieDataType = ReturnType<typeof getMovieAC>
 export type TotalMovieCountType = ReturnType<typeof totalMovieCountAC>
 export type CurrentPageType = ReturnType<typeof setCurrentPageAC>
 
-
+export type FilterGenreType = "All" | "Comedy" | "Scy-Fi" | "Horror" | "Romance" | "Action" | "Thriller" | "Drama" | "Mystery" | "Crime" | "Animation" | "Adventure" | "Fantasy "
