@@ -12,9 +12,10 @@ export type MovieType = {
 
 const initialState = {
     movies: []as Array<MovieType>,
-    totalMovieCount: 0,
+    totalMovieCount: 1,
+    status: false,
     params: {
-        pageNumber: 1,
+        page: 1,
         limit: 15,
         genre: 'all'
     }
@@ -24,14 +25,18 @@ type InitialStateType = typeof initialState
 
 
 export const movieReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
-debugger
+
     switch (action.type) {
         case 'GET_MOVIE':
             return {...state,movies: action.movies}
         case 'TOTAL-MOVIE-COUNT':
             return {...state,  totalMovieCount: action.totalMovieCount}
+        case 'SET-STATUS':
+            return {...state,  status: action.status}
+        case 'SET-LIMIT-COUNT':
+            return {...state,params:{...state.params,limit: action.limit} }
         case 'SET-CURRENT-PAGE':
-            return {...state,params:{...state.params,pageNumber: action.pageNumber} }
+            return {...state,params:{...state.params,page: action.page} }
         case 'FILTER-GENRES':
             return {...state,params:{...state.params,genre: action.genre} }
         default:
@@ -48,9 +53,17 @@ export const totalMovieCountAC = (totalMovieCount: number) => ({
     type: 'TOTAL-MOVIE-COUNT',
     totalMovieCount
 } as const)
-export const setCurrentPageAC = (pageNumber: number) => ({
+export const limitCountAC = (limit: number) => ({
+    type: 'SET-LIMIT-COUNT',
+    limit
+} as const)
+export const setStatusAC = (status: boolean) => ({
+    type: 'SET-STATUS',
+    status
+} as const)
+export const setCurrentPageAC = (page: number) => ({
     type: 'SET-CURRENT-PAGE',
-    pageNumber
+    page
 } as const)
 export const filterGenresAC = (genre: string) => ({
     type: 'FILTER-GENRES',
@@ -63,16 +76,16 @@ export const filterGenresAC = (genre: string) => ({
 // thunk
 
 export const getMoviesTC = () => (dispatch: Dispatch<AppActionsType>,getState: ()=> AppRootState) => {
-    debugger
-
+    dispatch(setStatusAC(true))
     const params = getState().movies.params
 
     movieApi.getAllMovie(params)
         .then((res)=>{
+            dispatch(setStatusAC(false))
             dispatch(getMovieAC(res.data.data.movies))
-            dispatch(totalMovieCountAC(res.data.movie_count))
-
-            dispatch(setCurrentPageAC(res.data.movie.page_number))
+            dispatch(setCurrentPageAC(res.data.data.page_number))
+            dispatch(totalMovieCountAC(res.data.data.movie_count))
+            dispatch(limitCountAC(res.data.data.limit))
 
         })
         .catch(err => {
@@ -82,11 +95,13 @@ export const getMoviesTC = () => (dispatch: Dispatch<AppActionsType>,getState: (
 
 
 //type
-export type MovieActionTypes = GetMovieDataType | TotalMovieCountType | CurrentPageType | filterGenresType
+export type MovieActionTypes = GetMovieDataType | TotalMovieCountType | CurrentPageType | filterGenresType | limitCountType | setStatusType
 
 export type GetMovieDataType = ReturnType<typeof getMovieAC>
 export type TotalMovieCountType = ReturnType<typeof totalMovieCountAC>
 export type CurrentPageType = ReturnType<typeof setCurrentPageAC>
 export type filterGenresType = ReturnType<typeof filterGenresAC>
+export type limitCountType = ReturnType<typeof limitCountAC>
+export type setStatusType = ReturnType<typeof setStatusAC>
 
-export type FilterGenreType = "All" | "Comedy" | "Scy-Fi" | "Horror" | "Romance" | "Action" | "Thriller" | "Drama" | "Mystery" | "Crime" | "Animation" | "Adventure" | "Fantasy "
+

@@ -1,10 +1,11 @@
 .movieBlock {
-    margin-left: 15px;
+
     margin-top: 10px;
 }
 
 .movieBlock img {
-    border: 5px solid white;
+    border: 1px solid white;
+    border-radius: 5px;
 }
 
 .hoverEffectBtn {
@@ -18,6 +19,7 @@
     width: 100%;
     height: 100%;
     transition: background 0.5s ease;
+    border-radius: 5px;
 }
 .hoverEffectBtn:hover .overlay {
     display: block;

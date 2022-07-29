@@ -1,22 +1,26 @@
-import React, {useState} from "react";
+import React from "react";
 import Movie from "./movie/Movie";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState, TypeDispatch} from "../../state/store";
-import {filterGenresAC, getMoviesTC, MovieType} from "../../state/movieReducer";
+import {filterGenresAC, MovieType} from "../../state/movieReducer";
+import style from "./Movies.module.css"
+import Preloader from "../../common/preloader/Preloader";
 
 
 const Movies = () => {
     const dispatch = useDispatch<TypeDispatch>()
     const movies = useSelector<AppRootState, Array<MovieType>>(state => state.movies.movies)
-
+    const status = useSelector<AppRootState, boolean>(state => state.movies.status)
 
     const onClickFilter = (filterButton: string) => {
         dispatch(filterGenresAC(filterButton))
     }
 
     return (
-        <div>
-            <div>
+        <div className={style.movieContainer}>
+
+
+            <div className={style.filterButton}>
                 <button onClick={() => onClickFilter('all')}>All movies</button>
                 <button onClick={() => onClickFilter('comedy')}>Comedy</button>
                 <button onClick={() => onClickFilter('horror')}>Horror</button>
@@ -32,13 +36,15 @@ const Movies = () => {
                 <button onClick={() => onClickFilter('fantasy')}>Fantasy</button>
 
             </div>
-            <div className="Movie-container">
+            {status ? <Preloader/> :
+            <div className={style.moviesBlock}>
+
                 {movies.map(movie => (
                     <div key={movie.id}>
                         <Movie data={movie}/>
                     </div>
                 ))}
-            </div>
+            </div>}
 
         </div>
     )

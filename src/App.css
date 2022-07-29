@@ -3,9 +3,22 @@
     margin: 0;
     padding: 0;
 }
-.Movie-container {
-    width: 100%;
+
+.App {
+    background-color: var(--background-color);
+    color: var(--color);
+    transition: background-color 200ms linear;
+}
+
+.FooterContainer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.preloader {
+    height: 100vh;
     display: flex;
-    flex-wrap: wrap;
-    background-color: cornflowerblue;
+    justify-content: center;
+    align-items: center;
 }

@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useState} from "react";
+import React, {SyntheticEvent} from "react";
 import style from "./Movie.module.css"
 import {MovieType} from "../../../state/movieReducer";
 import noImage from "../../../assets/image/no_image.png"
