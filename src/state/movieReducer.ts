@@ -12,6 +12,7 @@ export type MovieType = {
 
 const initialState = {
     movies: []as Array<MovieType>,
+    movie:{} as MovieType,
     totalMovieCount: 1,
     status: false,
     params: {
@@ -27,8 +28,10 @@ type InitialStateType = typeof initialState
 export const movieReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
 
     switch (action.type) {
-        case 'GET_MOVIE':
+        case 'GET_MOVIES':
             return {...state,movies: action.movies}
+        case 'GET_MOVIE':
+            return {...state, movie: action.movie}
         case 'TOTAL-MOVIE-COUNT':
             return {...state,  totalMovieCount: action.totalMovieCount}
         case 'SET-STATUS':
@@ -44,9 +47,13 @@ export const movieReducer = (state: InitialStateType = initialState, action: App
     }
 }
 // actions
-export const getMovieAC = (movies: Array<MovieType>) => ({
-    type: 'GET_MOVIE',
+export const getMoviesAC = (movies: Array<MovieType>) => ({
+    type: 'GET_MOVIES',
     movies
+} as const)
+export const getMovieAC = (movie: MovieType) => ({
+    type: 'GET_MOVIE',
+    movie
 } as const)
 
 export const totalMovieCountAC = (totalMovieCount: number) => ({
@@ -82,21 +89,32 @@ export const getMoviesTC = () => (dispatch: Dispatch<AppActionsType>,getState: (
     movieApi.getAllMovie(params)
         .then((res)=>{
             dispatch(setStatusAC(false))
-            dispatch(getMovieAC(res.data.data.movies))
+            dispatch(getMoviesAC(res.data.data.movies))
             dispatch(setCurrentPageAC(res.data.data.page_number))
             dispatch(totalMovieCountAC(res.data.data.movie_count))
             dispatch(limitCountAC(res.data.data.limit))
 
         })
         .catch(err => {
-
+            console.log(err);
             })
+}
+
+export const getDetailsMovieTC = (id: string) => (dispatch:Dispatch<AppActionsType>) => {
+    dispatch(setStatusAC(true))
+    movieApi.getDetailsMovie(id)
+        .then((res)=>{
+            console.log(res.data)
+            dispatch(getMovieAC(res.data.data.movie))
+        })
+    dispatch(setStatusAC(false))
 }
 
 
 //type
-export type MovieActionTypes = GetMovieDataType | TotalMovieCountType | CurrentPageType | filterGenresType | limitCountType | setStatusType
+export type MovieActionTypes = GetMoviesDataType | TotalMovieCountType | CurrentPageType | filterGenresType | limitCountType | setStatusType | GetMovieDataType
 
+export type GetMoviesDataType = ReturnType<typeof getMoviesAC>
 export type GetMovieDataType = ReturnType<typeof getMovieAC>
 export type TotalMovieCountType = ReturnType<typeof totalMovieCountAC>
 export type CurrentPageType = ReturnType<typeof setCurrentPageAC>

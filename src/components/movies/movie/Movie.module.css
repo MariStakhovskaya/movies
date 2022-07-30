@@ -1,5 +1,5 @@
 .movieBlock {
-
+    margin-right: 20px;
     margin-top: 10px;
 }
 
@@ -24,6 +24,7 @@
 .hoverEffectBtn:hover .overlay {
     display: block;
     background: rgba(0, 0, 0, 0.9); /* Настройка цвета и прозрачности для блока с заголовком при наведении */
+    border: 1px solid white;
 }
 .button {
     position: absolute;

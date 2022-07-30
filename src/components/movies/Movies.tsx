@@ -2,9 +2,10 @@ import React from "react";
 import Movie from "./movie/Movie";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState, TypeDispatch} from "../../state/store";
-import {filterGenresAC, MovieType} from "../../state/movieReducer";
+import {filterGenresAC, MovieType, setCurrentPageAC} from "../../state/movieReducer";
 import style from "./Movies.module.css"
 import Preloader from "../../common/preloader/Preloader";
+import Paginator from "../paginator/Paginator";
 
 
 const Movies = () => {
@@ -14,6 +15,7 @@ const Movies = () => {
 
     const onClickFilter = (filterButton: string) => {
         dispatch(filterGenresAC(filterButton))
+        dispatch(setCurrentPageAC(1))
     }
 
     return (
@@ -21,19 +23,19 @@ const Movies = () => {
 
 
             <div className={style.filterButton}>
-                <button onClick={() => onClickFilter('all')}>All movies</button>
-                <button onClick={() => onClickFilter('comedy')}>Comedy</button>
-                <button onClick={() => onClickFilter('horror')}>Horror</button>
-                <button onClick={() => onClickFilter('sci-fi')}>Sci-Fi</button>
-                <button onClick={() => onClickFilter('romance')}>Romance</button>
-                <button onClick={() => onClickFilter('action')}>Action</button>
-                <button onClick={() => onClickFilter('thriller')}>Thriller</button>
-                <button onClick={() => onClickFilter('drama')}>Drama</button>
-                <button onClick={() => onClickFilter('mystery')}>Mystery</button>
-                <button onClick={() => onClickFilter('crime')}>Crime</button>
-                <button onClick={() => onClickFilter('animation')}>Animation</button>
-                <button onClick={() => onClickFilter('adventure')}>Adventure</button>
-                <button onClick={() => onClickFilter('fantasy')}>Fantasy</button>
+                <span onClick={() => onClickFilter('all')}>All movies</span>
+                <span onClick={() => onClickFilter('comedy')}>Comedy</span>
+                <span onClick={() => onClickFilter('horror')}>Horror</span>
+                <span onClick={() => onClickFilter('sci-fi')}>Sci-Fi</span>
+                <span onClick={() => onClickFilter('romance')}>Romance</span>
+                <span onClick={() => onClickFilter('action')}>Action</span>
+                <span onClick={() => onClickFilter('thriller')}>Thriller</span>
+                <span onClick={() => onClickFilter('drama')}>Drama</span>
+                <span onClick={() => onClickFilter('mystery')}>Mystery</span>
+                <span onClick={() => onClickFilter('crime')}>Crime</span>
+                <span onClick={() => onClickFilter('animation')}>Animation</span>
+                <span onClick={() => onClickFilter('adventure')}>Adventure</span>
+                <span onClick={() => onClickFilter('fantasy')}>Fantasy</span>
 
             </div>
             {status ? <Preloader/> :
@@ -45,7 +47,7 @@ const Movies = () => {
                     </div>
                 ))}
             </div>}
-
+            <Paginator/>
         </div>
     )
 }

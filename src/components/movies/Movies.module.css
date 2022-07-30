@@ -13,9 +13,11 @@
     padding: 10px 20px;
 }
 
-.filterButton button {
-    padding: 10px ;
-    border-radius: 10px;
-    margin-right:5px ;
-    background-color: var(--button-background-color);
+.filterButton span {
+    margin-right:15px ;
+}
+
+.filterButton span:hover {
+    color: #1e6eff;
+    cursor: pointer;
 }
