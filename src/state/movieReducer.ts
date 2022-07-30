@@ -5,8 +5,14 @@ import {AppActionsType, AppRootState} from "./store";
 export type MovieType = {
     id: number,
     medium_cover_image: string,
+    large_cover_image: string,
+    like_count: number,
+    download_count: number,
     title_english: string,
-    genres: Array<string>,
+    genres: Array<string>
+    year: number,
+    rating: number,
+    description_full: string
 
 }
 
