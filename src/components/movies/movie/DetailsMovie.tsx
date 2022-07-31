@@ -4,6 +4,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState, TypeDispatch} from "../../../state/store";
 import {getDetailsMovieTC, MovieType} from "../../../state/movieReducer";
 import style from './DetailsMovie.module.css'
+import like from '../../../assets/icon/like.png'
+import rating from '../../../assets/icon/rate.png'
+import download from '../../../assets/icon/download.png'
 
 
 export const DetailsMovie = () => {
@@ -32,15 +35,20 @@ export const DetailsMovie = () => {
                     <img src={movie.medium_cover_image} alt={`Movie ${movie.title_english}`}/>
                 </div>
                 <div>
-                    <div> {movie.title_english}</div>
-                    <div> Year: {movie.year}</div>
-                    <div> Rating : {movie.rating}</div>
+                    <div className={style.titleMovie}> {movie.title_english}</div>
+                    <div> <span className={style.titleDetails}>Year:</span> {movie.year}</div>
+                    <div className={style.rateBlock}>
+                        <div> <img src={rating} alt="rating"/> : {movie.rating}</div>
+                        <div><img src={like} alt="like"/> : {movie.like_count}</div>
+                        <div> <img src={download} alt="download"/> : {movie.download_count}</div>
+                    </div>
+
                     <div> Description: {movie.description_full}</div>
-                    <div> Компонента комментарии</div>
+
                 </div>
+
             </div>
-
-
+            <div> Компонента комментарии</div>
         </div>
     )
 }
