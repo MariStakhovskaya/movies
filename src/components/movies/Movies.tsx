@@ -6,6 +6,7 @@ import {filterGenresAC, MovieType, setCurrentPageAC} from "../../state/movieRedu
 import style from "./Movies.module.css"
 import Preloader from "../../common/preloader/Preloader";
 import Paginator from "../paginator/Paginator";
+import Rating from "../rating/Rating";
 
 
 const Movies = () => {
@@ -37,6 +38,9 @@ const Movies = () => {
                 <span onClick={() => onClickFilter('adventure')}>Adventure</span>
                 <span onClick={() => onClickFilter('fantasy')}>Fantasy</span>
 
+            </div>
+            <div>
+                <Rating/>
             </div>
             {status ? <Preloader/> :
             <div className={style.moviesBlock}>

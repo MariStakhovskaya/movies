@@ -24,7 +24,8 @@ const initialState = {
     params: {
         page: 1,
         limit: 15,
-        genre: 'all'
+        genre: 'all',
+        sort_by:'all',
     }
 
 }

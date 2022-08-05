@@ -7,6 +7,7 @@ import style from './DetailsMovie.module.css'
 import like from '../../../assets/icon/like.png'
 import rating from '../../../assets/icon/rate.png'
 import download from '../../../assets/icon/download.png'
+import Comment from "../../comment/Comment";
 
 
 export const DetailsMovie = () => {
@@ -38,17 +39,17 @@ export const DetailsMovie = () => {
                     <div className={style.titleMovie}> {movie.title_english}</div>
                     <div> <span className={style.titleDetails}>Year:</span> {movie.year}</div>
                     <div className={style.rateBlock}>
-                        <div> <img src={rating} alt="rating"/> : {movie.rating}</div>
-                        <div><img src={like} alt="like"/> : {movie.like_count}</div>
-                        <div> <img src={download} alt="download"/> : {movie.download_count}</div>
+                        <div> <img src={rating} alt="rating"/>{movie.rating}</div>
+                        <div><img src={like} alt="like"/>{movie.like_count}</div>
+                        <div> <img src={download} alt="download"/>{movie.download_count}</div>
                     </div>
 
-                    <div> Description: {movie.description_full}</div>
-
+                    <div className={style.movieDescription}> {movie.description_full}</div>
+                    <div> <Comment /></div>
                 </div>
 
             </div>
-            <div> Компонента комментарии</div>
+
         </div>
     )
 }
