@@ -2,6 +2,11 @@ import {Dispatch} from "redux";
 import {movieApi} from "../api/movie-api";
 import {AppActionsType, AppRootState} from "./store";
 
+export  type CommentType = {
+    id : number
+    comment: string
+}
+
 export type MovieType = {
     id: number,
     medium_cover_image: string,
@@ -13,7 +18,7 @@ export type MovieType = {
     year: number,
     rating: number,
     description_full: string
-
+    comments: Array<CommentType>
 }
 
 const initialState = {
@@ -26,7 +31,8 @@ const initialState = {
         limit: 15,
         genre: 'all',
         sort_by:'all',
-    }
+    },
+
 
 }
 type InitialStateType = typeof initialState
@@ -49,6 +55,13 @@ export const movieReducer = (state: InitialStateType = initialState, action: App
             return {...state,params:{...state.params,page: action.page} }
         case 'FILTER-GENRES':
             return {...state,params:{...state.params,genre: action.genre} }
+       /* case 'ADD-COMMENT':
+            return {...state,
+                movies: state.movies.map(movie => movie.id === action.idMovie ? {
+                    ...movie,
+                    comments: [...movie.comments,action.newComment]
+                } : movie)
+            }*/
         default:
             return state
     }
@@ -61,6 +74,11 @@ export const getMoviesAC = (movies: Array<MovieType>) => ({
 export const getMovieAC = (movie: MovieType) => ({
     type: 'GET_MOVIE',
     movie
+} as const)
+export const addCommentsAC = (idMovie: number,newComment: CommentType ) => ({
+    type: 'ADD-COMMENT',
+    idMovie,
+    newComment
 } as const)
 
 export const totalMovieCountAC = (totalMovieCount: number) => ({
@@ -119,7 +137,10 @@ export const getDetailsMovieTC = (id: string) => (dispatch:Dispatch<AppActionsTy
 
 
 //type
-export type MovieActionTypes = GetMoviesDataType | TotalMovieCountType | CurrentPageType | filterGenresType | limitCountType | setStatusType | GetMovieDataType
+export type MovieActionTypes = GetMoviesDataType |
+    TotalMovieCountType |
+    CurrentPageType |
+    filterGenresType | limitCountType | setStatusType | GetMovieDataType | AddCommentsType
 
 export type GetMoviesDataType = ReturnType<typeof getMoviesAC>
 export type GetMovieDataType = ReturnType<typeof getMovieAC>
@@ -128,5 +149,6 @@ export type CurrentPageType = ReturnType<typeof setCurrentPageAC>
 export type filterGenresType = ReturnType<typeof filterGenresAC>
 export type limitCountType = ReturnType<typeof limitCountAC>
 export type setStatusType = ReturnType<typeof setStatusAC>
+export type AddCommentsType = ReturnType<typeof addCommentsAC>
 
 

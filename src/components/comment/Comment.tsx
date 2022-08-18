@@ -1,42 +1,32 @@
 import React, {useEffect, useState} from "react";
 import style from "./Comment.module.css"
-import {json} from "stream/consumers";
+
+type CommentPropsType = {
+    idMovie: number,
+    addComment: (comment:CommentStateType) => void
+
+   }
+
+type CommentStateType = {
+    id: number,
+    comment:string
+}
 
 
+const Comment = (props:CommentPropsType) => {
+
+    const [value, setValue] = useState('')
 
 
-
-const Comment = () => {
-
-    type CommentType = {
-        id: number
-        comment: string}
-type CommentsType = Array<CommentType>
-
-const [value, setValue] = useState('')
-    const [comments, setComments] = useState([{}])
-
-
-
-     /* let commentArray =  localStorage.getItem('valueComment')
-        if(commentArray)
-       return  commentArray = JSON.parse(commentArray)
-console.log(commentArray)
-
-
-
-
-
-    const onclickHandler = () => {
+    const addComment = () => {
         let newComment = {id:1 , comment:value}
-     setComments([...comments, newComment])
-
-    localStorage.setItem('valueComment',JSON.stringify(comments))
-setValue('')
-
-
-    }*/
-
+        /*     let commentArr = [...comment, newComment]
+         localStorage.setItem('comments',JSON.stringify(commentArr))
+             setComment(commentArr)
+         setValue('')*/
+        props.addComment(newComment)
+        setValue('')
+    }
 
 
     return (
@@ -45,10 +35,11 @@ setValue('')
 
           <textarea value={value} rows={4} cols={50} onChange={(e)=>{setValue(e.currentTarget.value)}}/>
             <div>
-            <button >Отправить</button>
+            <button onClick={addComment}>Отправить</button>
             <button onClick={()=>setValue('')}>Очистить</button>
             </div>
-{/*<div>{commentArray}</div>*/}
+           {/* {comment.map(c => <div key={c.id}>{c.comment}</div>)}*/}
+
         </div>
     )
 }
