@@ -3,7 +3,7 @@ import style from "./Comment.module.css"
 
 type CommentPropsType = {
     idMovie: number,
-    addComment: (comment:CommentStateType) => void
+    addComment: (comment:CommentStateType, idMovie: number) => void
 
    }
 
@@ -19,12 +19,8 @@ const Comment = (props:CommentPropsType) => {
 
 
     const addComment = () => {
-        let newComment = {id:1 , comment:value}
-        /*     let commentArr = [...comment, newComment]
-         localStorage.setItem('comments',JSON.stringify(commentArr))
-             setComment(commentArr)
-         setValue('')*/
-        props.addComment(newComment)
+        let newComment = {id:props.idMovie+1 , comment: value}
+        props.addComment(newComment, props.idMovie)
         setValue('')
     }
 
@@ -38,8 +34,6 @@ const Comment = (props:CommentPropsType) => {
             <button onClick={addComment}>Отправить</button>
             <button onClick={()=>setValue('')}>Очистить</button>
             </div>
-           {/* {comment.map(c => <div key={c.id}>{c.comment}</div>)}*/}
-
         </div>
     )
 }

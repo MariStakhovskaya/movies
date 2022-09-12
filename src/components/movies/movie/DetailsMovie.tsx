@@ -24,9 +24,10 @@ export const DetailsMovie = () => {
             [{id:3, comment: 'aaa'}, {id: 4, comment: 'bbb'}]
     } )*/
 
-    let commentMovie:CommentStateType = {}
 
-    const [commentArray, setCommentArray] = useState<Array<CommentType>>([])
+    const [commentArray, setCommentArray] = useState<CommentStateType>({ [44349]:
+            [{id:1, comment: 'test'}, {id: 2, comment: 'test1'}] ,})
+
 
     useEffect(() => {
         if (id) {
@@ -34,48 +35,34 @@ export const DetailsMovie = () => {
         }
     }, [])
 
-    const addComment = (comment:CommentType) => {
 
-        if (movie.id === Number(id) ){
-
-           /* setCommentArray([...commentArray, comment])*/
-
-            commentMovie[movie.id] = [...commentArray, comment]
-            setCommentArray(commentMovie[movie.id])
-            localStorage.setItem('comments', JSON.stringify(commentArray))
-            console.log(commentMovie)
-
-            console.log( commentMovie[movie.id])
-
-          /*  let movieComment = commentMovie[movie.id]
-            commentMovie[movie.id] = [...movieComment, comment]
-            setCommentArray({...commentArray})*/
-
-        }
-
-
-        /*  if(comment){
-              setCommentArray([...commentArray,comment])
-              localStorage.setItem('id', JSON.stringify(commentArray))
-              console.log(commentArray)
-          }*/
-
-    }
     let  arrayMovieComments
-    useEffect(() => {
-          arrayMovieComments = localStorage.getItem("id")
-        if (arrayMovieComments){
-            arrayMovieComments = JSON.parse(arrayMovieComments);
 
-            console.log(arrayMovieComments)
+    useEffect(() => {
+
+        arrayMovieComments = localStorage.getItem('comments')
+        if (arrayMovieComments){
+            let newArr = JSON.parse(arrayMovieComments);
+                setCommentArray(newArr)
         }
 
-    },[])
+    },[arrayMovieComments])
 
     const movie = useSelector<AppRootState, MovieType>(state => state.movies.movie)
     const idMovie = useSelector<AppRootState, number>(state => state.movies.movie.id)
     const goBack = () => navigate(-1)
 
+    const addComment = (comment:CommentType, idMovie: number) => {
+        debugger
+        if (commentArray[idMovie] === undefined){
+            commentArray[idMovie]= []
+        }
+        let newComm = commentArray[idMovie]
+        commentArray[idMovie] = [...newComm, comment]
+        setCommentArray({...commentArray})
+        let str = localStorage.setItem('comments', JSON.stringify(commentArray))
+
+    }
 
     return (
         <div className={style.detailsMovieBlock}>
@@ -100,19 +87,10 @@ export const DetailsMovie = () => {
                     <div className={style.movieDescription}> {movie.description_full}</div>
                     <div> <Comment idMovie={idMovie}  addComment = {addComment}/></div>
                     <div>
-fewfs
-                        {/*{ movie.id  === Number(id) ? commentMovie[movie.id] &&  commentMovie[movie.id].map(el => <div>{el.comment}</div>) : '' }
-*/}
 
-                        {commentArray.map(el => <div>{el.comment}</div>)}
+                        {commentArray[movie.id] ? commentArray[movie.id].map(el => <div>{el.comment}</div>) :''}
+
                     </div>
-                    {/* {comment.map(c => <div key={c.id}>{c.comment}</div>)}*/}
-                  {/*  {movie.id === 44349 && commentArray["44349"].map(el => <div>{el.comment}</div>)}*/}
-                 {/*  <div> {
-                       movie.id === Number(id) &&  commentMovie[movie.id].map(el => <div key={el.id}>{el.comment}</div>)
-                   }
-
-                   </div>*/}
 
                 </div>
 
