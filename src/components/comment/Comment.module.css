@@ -1,3 +1,22 @@
-.commentContainer input {
+.commentContainer  {
+    margin-top: 20px;
+}
 
+.commentContainer h4 {
+    margin-bottom: 10px;
+}
+
+.commentContainer textarea {
+    border-radius: 10px
+}
+
+.commentContainer button {
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 5px;
+    background-color: var(--button-text-color);
+}
+
+.commentContainer button:hover {
+    background-color: #004774;
 }

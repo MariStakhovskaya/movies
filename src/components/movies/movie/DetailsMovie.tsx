@@ -53,7 +53,7 @@ export const DetailsMovie = () => {
     const goBack = () => navigate(-1)
 
     const addComment = (comment:CommentType, idMovie: number) => {
-        debugger
+
         if (commentArray[idMovie] === undefined){
             commentArray[idMovie]= []
         }
@@ -88,7 +88,7 @@ export const DetailsMovie = () => {
                     <div> <Comment idMovie={idMovie}  addComment = {addComment}/></div>
                     <div>
 
-                        {commentArray[movie.id] ? commentArray[movie.id].map(el => <div>{el.comment}</div>) :''}
+                        {commentArray[movie.id] ? commentArray[movie.id].map(el => <div key={el.id} className={style.commentMovie}>{el.comment}</div>) :''}
 
                     </div>
 

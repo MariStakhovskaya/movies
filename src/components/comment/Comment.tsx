@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import style from "./Comment.module.css"
 
 type CommentPropsType = {
     idMovie: number,
     addComment: (comment:CommentStateType, idMovie: number) => void
-
    }
 
 type CommentStateType = {
@@ -31,7 +30,7 @@ const Comment = (props:CommentPropsType) => {
 
           <textarea value={value} rows={4} cols={50} onChange={(e)=>{setValue(e.currentTarget.value)}}/>
             <div>
-            <button onClick={addComment}>Отправить</button>
+            <button onClick={addComment} disabled={value===''? true : false}>Отправить</button>
             <button onClick={()=>setValue('')}>Очистить</button>
             </div>
         </div>

@@ -68,3 +68,15 @@ display: flex;
     color: #d7ddde;
     width: 60%;
 }
+
+.commentMovie {
+
+    width: 90%;
+    border: 1px solid #DEDEDE;
+    border-radius: 6px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 60px;
+    padding: 10px 16px 0;
+    margin-top: 30px;
+}
