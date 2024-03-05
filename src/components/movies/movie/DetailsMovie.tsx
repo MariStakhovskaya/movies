@@ -17,13 +17,6 @@ export const DetailsMovie = () => {
     const {id} = useParams<{ id: string }>()
     const dispatch = useDispatch<TypeDispatch>()
     const navigate = useNavigate()
-   /* const [commentArray, setCommentArray] = useState({
-        [44349]:
-            [{id:1, comment: 'test'}, {id: 2, comment: 'test1'}],
-        [44347]:
-            [{id:3, comment: 'aaa'}, {id: 4, comment: 'bbb'}]
-    } )*/
-
 
     const [commentArray, setCommentArray] = useState<CommentStateType>({ [44349]:
             [{id:1, comment: 'test'}, {id: 2, comment: 'test1'}] ,})

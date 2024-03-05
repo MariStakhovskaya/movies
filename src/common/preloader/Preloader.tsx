@@ -1,4 +1,3 @@
-import React from 'react';
 import loader from "../../assets/image/loader.gif"
 import "../../App.css";
 
